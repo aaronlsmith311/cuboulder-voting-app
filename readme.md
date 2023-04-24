@@ -1,12 +1,12 @@
 Running the app
 
-API
+API Option 1
 	- open git repo in IntelliJ IDE
 	- navigate to DemoApplication file
 	- click on the green play button to the left of the class declaration
 	- click Run
  
-	OR
+API Option 2
 	- navigate to git repo via terminal/command prompt
 	- execute command: mvn spring-boot:run
 
