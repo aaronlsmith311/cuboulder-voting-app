@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Questions</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card *ngFor="let question of questions"
+    class="list-group-item">
+    <mat-card-header>
+      <mat-card-title> {{ question.questionDescription }} </mat-card-title>
+    </mat-card-header> 
+    <mat-card-actions>
+      <button mat-raised-button (click)="vote(question.questionId, true)" color="primary">Yes</button>
+      <button mat-raised-button (click)="vote(question.questionId, false)" color="secondary">No</button>
+    </mat-card-actions> 
+  </mat-card>
+  </mat-card-content>
+</mat-card>
+

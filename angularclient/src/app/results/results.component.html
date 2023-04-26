@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Questions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card *ngFor="let question of questions"
+      class="list-group-item">
+      <mat-card-header>
+        {{ question.questionDescription }}
+      </mat-card-header> 
+      <mat-card-content>
+        <p>{{ "Total Votes: " + question.totalVotes}}</p>
+        <p>{{"Yes: " + question.yesVotesPercent}}</p>
+        <p>{{"No: " + question.noVotesPercent}}</p>
+      </mat-card-content>
+    </mat-card>
+    </mat-card-content>
+  </mat-card>
+  
+  

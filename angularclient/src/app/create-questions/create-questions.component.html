@@ -1,0 +1,22 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Create New Questions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+              <input matInput placeholder="Enter question here" [(ngModel)]="question" name="question" required>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="createQuestion()" color="primary">Create</button>
+    </mat-card-actions>
+  </mat-card>
+ 

@@ -1,0 +1,22 @@
+div {
+    display: flex;
+    height: 100%;
+}
+
+mat-card {
+    flex: 1 1 auto;
+}
+
+mat-card-actions {
+    height: 100%;
+}
+
+button {
+    width: 100%;
+    display: block;
+    font-size: 2rem;
+}
+
+.mat-mdc-button.mat-mdc-button-base {
+    height: 100%;
+}
