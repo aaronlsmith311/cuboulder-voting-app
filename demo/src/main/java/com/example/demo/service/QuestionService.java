@@ -42,6 +42,9 @@ public class QuestionService {
             if (questionsResponseBody.getTotalVotes() > 0) {
                 questionsResponseBody.setYesVotesPercent((yesVotes / questionsResponseBody.getTotalVotes()) * 100 + "%");
                 questionsResponseBody.setNoVotesPercent((noVotes / questionsResponseBody.getTotalVotes()) * 100 + "%");
+            } else {
+                questionsResponseBody.setYesVotesPercent("0%");
+                questionsResponseBody.setNoVotesPercent("0%");
             }
 
             questionsResponse.add(questionsResponseBody);
