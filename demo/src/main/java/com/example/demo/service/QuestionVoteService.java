@@ -36,6 +36,12 @@ public class QuestionVoteService {
                     throw new BadRequestException("User has already voted on this question");
                 });
 
+        createVote(question, appUser, request);
+
+        questionRepository.save(question);
+    }
+
+    private void createVote(Question question, AppUser appUser, QuestionVoteRequestBody request) {
         // create new vote and save question
         QuestionVote newQuestionVote = new QuestionVote();
         newQuestionVote.setQuestion(question);
@@ -44,7 +50,5 @@ public class QuestionVoteService {
         List<QuestionVote> votes = question.getQuestionVotes();
         votes.add(newQuestionVote);
         question.setQuestionVotes(votes);
-
-        questionRepository.save(question);
     }
 }

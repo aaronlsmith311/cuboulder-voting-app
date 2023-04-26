@@ -26,27 +26,7 @@ public class QuestionService {
         List<Question> questions = questionRepository.findAll();
 
         questions.forEach(question -> {
-            QuestionsResponseBody questionsResponseBody = new QuestionsResponseBody();
-            questionsResponseBody.setQuestionId(question.getQuestionId());
-            questionsResponseBody.setQuestionDescription(question.getQuestionDescription());
-            questionsResponseBody.setCreatedTimestamp(question.getCreatedTimestamp());
-            questionsResponseBody.setTotalVotes(question.getQuestionVotes().size());
-            // count votes
-            long yesVotes = question.getQuestionVotes().stream()
-                    .filter(QuestionVote::isVote)
-                    .count();
-            long noVotes = question.getQuestionVotes().stream()
-                    .filter(vote -> !vote.isVote())
-                    .count();
-            // calculate vote percentages
-            if (questionsResponseBody.getTotalVotes() > 0) {
-                questionsResponseBody.setYesVotesPercent((yesVotes / questionsResponseBody.getTotalVotes()) * 100 + "%");
-                questionsResponseBody.setNoVotesPercent((noVotes / questionsResponseBody.getTotalVotes()) * 100 + "%");
-            } else {
-                questionsResponseBody.setYesVotesPercent("0%");
-                questionsResponseBody.setNoVotesPercent("0%");
-            }
-
+            QuestionsResponseBody questionsResponseBody = mapQuestions(question);
             questionsResponse.add(questionsResponseBody);
         });
         return questionsResponse;
@@ -69,5 +49,35 @@ public class QuestionService {
         newQuestion.setCreatedTimestamp(Instant.now());
 
         return questionRepository.save(newQuestion);
+    }
+
+    private QuestionsResponseBody mapQuestions(Question question) {
+        QuestionsResponseBody questionsResponseBody = new QuestionsResponseBody();
+        questionsResponseBody.setQuestionId(question.getQuestionId());
+        questionsResponseBody.setQuestionDescription(question.getQuestionDescription());
+        questionsResponseBody.setCreatedTimestamp(question.getCreatedTimestamp());
+        questionsResponseBody.setTotalVotes(question.getQuestionVotes().size());
+
+        calculateVotePercent(question, questionsResponseBody);
+
+        return questionsResponseBody;
+    }
+
+    private void calculateVotePercent(Question question, QuestionsResponseBody questionsResponseBody) {
+        // count votes
+        long yesVotes = question.getQuestionVotes().stream()
+                .filter(QuestionVote::isVote)
+                .count();
+        long noVotes = question.getQuestionVotes().stream()
+                .filter(vote -> !vote.isVote())
+                .count();
+
+        if (questionsResponseBody.getTotalVotes() > 0) {
+            questionsResponseBody.setYesVotesPercent((yesVotes / questionsResponseBody.getTotalVotes()) * 100 + "%");
+            questionsResponseBody.setNoVotesPercent((noVotes / questionsResponseBody.getTotalVotes()) * 100 + "%");
+        } else {
+            questionsResponseBody.setYesVotesPercent("0%");
+            questionsResponseBody.setNoVotesPercent("0%");
+        }
     }
 }
